@@ -2,19 +2,25 @@
     font-family: Roboto, sans-serif;
     display: flex;
     flex-direction:column;
-
-    width: 50%;
-    height: 50%;
-
-    left: 50%;
-    top: 50%;
-    transform: translate(50%, 50%);
-
-    padding: 1%;
-    margin: 1%;
+    
+    width: 100%;
+    max-width: 500px;
+    height: 100vh;
+    
+    padding: 20px;
     color: whitesmoke;
     border: 1px solid #211b62;
-    border-radius: 20px;
     box-shadow: 0 1px 2px 1px #2417ad;
     background-color: rgba(9, 18, 26, 0.8);
+}
+
+@media (min-width: 500px) {
+    .content {
+        position: absolute;
+        max-height: 600px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 20px;
+    }    
 }

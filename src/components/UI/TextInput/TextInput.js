@@ -1,9 +1,14 @@
-export default function TextInput({id}) {
+import styles from './TextInput.module.css';
+
+export default function TextInput(props) {
     return ( 
-        <input
+        <input 
+            className={styles.textInput}
             type="text"
             maxLength="256"
-            id={id}
+            id={props.id}
+            onChange={props.onChange}
+            value={props.value}
         />
     );
 };

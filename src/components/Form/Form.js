@@ -1,67 +1,64 @@
-import React, { useRef } from 'react';
-
-import { AutoTabProvider } from 'react-auto-tab';
+import React, { useState, useEffect } from 'react';
 
 import SingleCharInput from "../UI/SingleCharInput/SingleCharInput";
 import TextInput from "../UI/TextInput/TextInput";
 
 import styles from './Form.module.css';
 
-export default function Form() {
+const errorMsgs = {
+    MinFour: "Enter minimum four characters",
+    InvalidChar: "Only letters from a to z allowed",
+};
 
-    const tabRef = React.createRef();
+export default function Form() {
+    const [codeInput, setCodeInput] = React.useState("");
+    const [errorTextInput, setErrorTextInput] = React.useState("");
+
+    useEffect(() => {
+
+    }, [errorTextInput]);
+
+    const codeInputChangeHandler = (ev) => {
+        setCodeInput(ev.target.value);
+        console.log(codeInput);
+        if(codeInput.length < 4) {
+            setErrorTextInput(errorMsgs.MinFour);
+        }
+        else if(codeInput.match(/([\d]|[^\w])/m) > 0) {
+            setErrorTextInput(errorMsgs.InvalidChar);
+        }
+        else {
+            setErrorTextInput("");
+        }
+    };
 
     return (
         <form>
             <ul className={styles.formList}>
-                <li>
-                    <TextInput
+                <li className={styles.codeInput}>
+                    <TextInput 
                         id="code"
+                        onChange={codeInputChangeHandler}
+                        value={codeInput}
                     />
+                    <div className={styles.errorMessage}>
+                        {errorTextInput}
+                    </div>
                 </li>
-                <li>
-                    <AutoTabProvider settings={{tabOnMax:true, pasteToFit:true}}>
-                    {/* <input
-            type="text"
-            maxLength={1}
-            tabbable="true"
-        />
-        <input
-            type="text"
-            maxLength={1}
-            tabbable="true"
-        />
-        <input
-            type="text"
-            maxLength={1}
-            tabbable="true"
-        />
-        <input
-            type="text"
-            maxLength={1}
-            tabbable="true"
-        /> */}
+                <li className={styles.lonelySingles}>
                         <SingleCharInput
                             id="clue#1"
-                            ref={tabRef}
-                            tabbable="true"
                         />
                         <SingleCharInput
                             id="clue#2"
-                            ref={tabRef}
-                            tabbable="true"
                         />
                         <SingleCharInput
                             id="clue#3"
-                            ref={tabRef}
-                            tabbable="true"
                         />
                         <SingleCharInput
                             id="clue#4"
-                            ref={tabRef}
-                            tabbable="true"
                         />
-                    </AutoTabProvider>
+                        <div className={styles.errorMessage}></div>
                 </li>
             </ul>
         </form>

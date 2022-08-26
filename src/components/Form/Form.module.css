@@ -5,5 +5,20 @@
 }
 
 .formList li {
+    margin-top: 5px;
+}
 
+.errorMessage {
+    height: 1em;
+    color: red;
+    text-align: center;
+}
+
+.codeInput {
+    width: 100%;
+}
+
+.lonelySingles {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }

@@ -1,13 +1,15 @@
 import Form from "./components/Form/Form";
+import OutputWindow from "./components/OutputWindow/OutputWindow";
 import Content from "./components/UI/Content/Content";
 
 function App() {
   return (
   <>
     <Content>
-      <h1>Hill Cipher Decipherer</h1>
-      <h2>by Krzysztof Siatkowski aka Yasuzume</h2>   
+      <h3>Hill Cipher Decipherer</h3>
+      <h4>by Krzysztof Siatkowski aka Yasuzume</h4>   
       <Form/>
+      <OutputWindow/>
     </Content>
   </>
   );

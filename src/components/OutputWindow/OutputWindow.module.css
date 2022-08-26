@@ -1,0 +1,46 @@
+.window {
+    font-family: monospace;
+    font-size: 2em;
+    color: black;
+    background-color: mintcream;
+    width: 100%;
+    height: 100%;
+    
+    margin-top: 50px;
+    margin-bottom: 20px;
+
+    padding-left: 5px;
+    padding-top: 10px;
+
+    border-radius: 10px;
+    border: 1px solid black;
+
+    overflow: auto;
+}
+
+.line {
+    width: 100%;
+    background-color: rgb(201, 196, 196);
+    transition: background-color, 1s, ease-in;
+}
+
+.line:first-child {
+    border-radius: 10px 10px 0 0;
+}
+
+.window::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.window::-webkit-scrollbar-track {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+
+}
+
+.window::-webkit-scrollbar-thumb {
+    background-color: rgba(135, 206, 250, 0.5);
+    border-radius: 20px;
+    
+}
