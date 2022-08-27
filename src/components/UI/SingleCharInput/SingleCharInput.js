@@ -2,19 +2,18 @@ import React, { useRef } from 'react';
 
 import styles from './SingleCharInput.module.css'
 
-const SingleCharInput = React.forwardRef((props, ref) => {
+const SingleCharInput = (props) => {
     return ( 
         <input
-            ref={ref}
             className={styles.single}
             type="text"
             maxLength={1}
             onChange={props.onChange}
-            onKeyDown={props.onKeyDown}
-            onPaste={props.onPaste}
+            value={props.value}
             id={props.id}
+            placeholder={props.placeholder}
         />
     );
-})
+};
 
 export default SingleCharInput;

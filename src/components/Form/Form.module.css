@@ -22,3 +22,9 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+
+.choices {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 5px;
+}

@@ -3,3 +3,7 @@
     font-size: 3em;
     height: 1em;
 }
+
+.textInput::placeholder {
+    font-size: 0.7em;
+}

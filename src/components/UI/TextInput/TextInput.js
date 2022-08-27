@@ -9,6 +9,7 @@ export default function TextInput(props) {
             id={props.id}
             onChange={props.onChange}
             value={props.value}
+            placeholder={props.placeholder}
         />
     );
 };

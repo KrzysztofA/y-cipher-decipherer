@@ -3,4 +3,9 @@
     height: 1em;
     font-size: 3em;
     text-transform: uppercase;
+    text-align: center;
+}
+.single::placeholder {
+    font-size: 0.7em;
+    text-align: center;
 }
