@@ -1,115 +1,185 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 
-import SingleCharInput from "../UI/SingleCharInput/SingleCharInput";
+import ClueInput from "../ClueInput/ClueInput";
 import Submit from '../UI/SubmitButton/Submit';
 import TextInput from "../UI/TextInput/TextInput";
 import AutoFill from '../AutoFill/AutoFill';
 
+import { URL, HILLENDPOINT, errorMsgs } from '../../Constants';
+
 import styles from './Form.module.css';
 
-const errorMsgs = {
-    MinFour: "Enter minimum four characters",
-    InvalidChar: "Only letters from a to z allowed",
+const codeReducer = (state, action) => {
+    /* Function containing coded text input logic, validates whether code has 
+     more than 4 characters and contains only valid letters */
+
+    // Validates on user input
+    if(action.type === 'USER_INPUT') {
+        const checkFour = action.val.length < 4;
+        const checkValidIpt = action.val.match(/([\d]|[^\w])/m) != null;
+        const checkValid = !checkValidIpt && !checkFour;
+        return { 
+            value: action.val,
+            fourMore: checkFour,
+            nonValidIpt: checkValidIpt,
+            isValid: checkValid,
+        }
+    }
+    // Doesn't have to validate on auto fill
+    else if(action.type === 'AUTO_FILL') {
+        return { 
+            value: action.val,
+            fourMore: false,
+            nonValidIpt: false,
+            isValid: true,
+        }
+    }
+    // Default values
+    return { 
+        value: '', 
+        fourMore: true, 
+        nonValidIpt: false, 
+        isValid: true,
+    };
 };
 
-export default function HillForm() {
-    const [codeInput, setCodeInput] = React.useState("");
-    const [errorTextInput, setErrorTextInput] = React.useState("");
-    const [clueInput, setClueInput] = React.useState(["", "", "", ""]);
-    const [errorClueInput, setErrorClueInput] = React.useState("");
+const clueReducer = (state, action) => {
+    if(action.type === 'USER_INPUT') {
+        return {
+            value: action.val,
+            isValid: (action.val.some(el => el.length > 0) && !action.val.some(el => el?.match(/([\d]|[^\w])/m) != null)) || action.val.forEach(el => el.length === 0),
+        }
+    }
+    else if(action.type === 'AUTO_FILL') {
+        return {
+            value: action.val,
+            isValid: true,
+        }
+    }
+    // Default Values
+    return {
+        value: ['', '', '', ''],
+        isValid: true,
+    }
+}
+
+
+
+export default function HillForm(props) {
+    /* Function containing the form and logic behind the form for the hill cipher
+     decoding. */
+
+    // States for the Error Messages
+    const [errorTextInput, setErrorTextInput] = useState("");
+    const [errorClueInput, setErrorClueInput] = useState("");
+    const [errorSubmit, setErrorSubmit] = useState("");
+    
+    // Reducer for the code input and clue input
+    const [clueState, dispatchClue] = useReducer(clueReducer, {
+        value: ["", "", "", ""],
+        isValid: true,
+    })
+    const [codeState, dispatchCode] = useReducer(codeReducer, {
+        value: '',
+        isValid: true,
+        fourMore: true,
+        nonValidIpt: false,
+    });
 
     useEffect(() => {
-        if(codeInput) {
-            if(codeInput.length < 4) {
-                setErrorTextInput(errorMsgs.MinFour);
-            }
-            else if(codeInput.match(/([\d]|[^\w])/m) != null) {
-                setErrorTextInput(errorMsgs.InvalidChar);
+        const clueTimeout = setTimeout(() => {
+            setErrorClueInput(clueState.isValid ? "" : errorMsgs.InvalidChar);
+        }, 500);
+        return () => { clearTimeout(clueTimeout); };
+    }, [clueState.isValid]);
+
+    useEffect(() => {
+        const codeTimeout = setTimeout(() => {
+            if(!codeState.isValid) {
+                setErrorTextInput(
+                    codeState.fourMore ? errorMsgs.MinFour 
+                    : errorMsgs.InvalidChar 
+                );
             }
             else {
                 setErrorTextInput("");
             }
-        }
-    }, [codeInput]);
-
-    useEffect(() => {
-        if(clueInput.some(el => el.length > 0)) {
-            
-            if(clueInput.some(el => el?.match(/([\d]|[^\w])/m) != null)) {
-                setErrorClueInput(errorMsgs.InvalidChar);
-            }
-            else {
-                setErrorClueInput("");
-            }
-        }
-    }, [clueInput]);
+        }, 500);
+        return () => { clearTimeout(codeTimeout); }
+    }, [codeState.isValid, codeState.fourMore])
 
     const codeInputChangeHandler = (ev) => {
-        setCodeInput(ev.target.value);
+        dispatchCode({
+            type: 'USER_INPUT', 
+            val: ev.target.value
+        });
     };
 
-    const clue1Change = (ev) => {
-        setClueInput(clueInput.map((el, i) => i === 0 ? ev.target.value : el ));
-    }
-
-    const clue2Change = (ev) => {
-        setClueInput(clueInput.map((el, i) => i === 1 ? ev.target.value : el ));
-    }
-
-    const clue3Change = (ev) => {
-        setClueInput(clueInput.map((el, i) => i === 2 ? ev.target.value : el ));
-    }
-
-    const clue4Change = (ev) => {
-        setClueInput(clueInput.map((el, i) => i === 3 ? ev.target.value : el ));
-    }
-
     const fillChangeHandler = (value) => {
-        let valList = value.split(',');
-        valList[1] = valList[1].split('');
-        setCodeInput(valList[0]);
-        setClueInput(clueInput.map((x, i) => valList[1][i] ? valList[1][i] : ""));
-    };   
+        if(value !== ' ') {
+            let valList = value.split(',');
+            valList[1] = valList[1].split('');
+            dispatchCode({
+                type: 'AUTO_FILL', 
+                val: valList[0]
+            });
+            dispatchClue({
+                type: 'AUTO_FILL',
+                val: clueState.value.map((x, i) => valList[1][i] ? valList[1][i] : "")
+            });
+        }
+        else {
+            dispatchCode({
+                type: 'AUTO_FILL', 
+                val: ""
+            });
+            dispatchClue({
+                type: 'AUTO_FILL',
+                val: ["", "", "", ""],
+        });
+    }};   
+
+    const submitHillHandler = (ev) => {
+        ev.preventDefault();
+        if(!codeState.isValid || !clueState.isValid) {
+            setErrorSubmit(errorMsgs.SubmitCorr);
+            return;
+        }
+        setErrorSubmit("");
+        const query = {
+            code: codeState.value,
+            clue: clueState.value.map((el) => el ? el : "_").join("")
+        }
+        fetch(`${URL}${HILLENDPOINT}?${new URLSearchParams(query)}`)
+        .then(res => {
+                if(res.status !== 200) {
+                    throw new Error(res.statusText);
+                }
+                return res.json();
+            }).then((json) => {
+            props.setOutput(json.possibleMessages);
+        }).catch(err => setErrorSubmit(err.message));
+    }
 
     return (
-        <form>
+        <form onSubmit={submitHillHandler}>
             <ul className={styles.formList}>
                 <li className={styles.codeInput}>
                     <TextInput 
                         id="code"
                         onChange={codeInputChangeHandler}
-                        value={codeInput}
+                        value={codeState.value}
                         placeholder="Enter coded text"
                     />
                     <div className={styles.errorMessage}>
                         {errorTextInput}
                     </div>
                 </li>
-                <li className={styles.lonelySingles}>
-                        <SingleCharInput
-                            id="clue#1"
-                            placeholder="C"
-                            value={clueInput[0]}
-                            onChange={clue1Change}
-                        />
-                        <SingleCharInput
-                            id="clue#2"
-                            placeholder="L"
-                            value={clueInput[1]}
-                            onChange={clue2Change}
-                        />
-                        <SingleCharInput
-                            id="clue#3"
-                            placeholder="U"
-                            value={clueInput[2]}
-                            onChange={clue3Change}
-                        />
-                        <SingleCharInput
-                            id="clue#4"
-                            placeholder="E"
-                            value={clueInput[3]}
-                            onChange={clue4Change}
-                        />
+                <li>
+                    <ClueInput
+                        value={clueState.value}
+                        dispatchClue={dispatchClue}
+                    />
                 </li>
                         <div className={styles.errorMessage}>
                             {errorClueInput}
@@ -121,6 +191,9 @@ export default function HillForm() {
                     />
                     <Submit/>
                 </li>
+                <div className={styles.errorMessage}>
+                    {errorSubmit}
+                </div>
             </ul>
         </form>
     );

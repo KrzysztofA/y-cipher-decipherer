@@ -12,6 +12,7 @@
     height: 100%;
     text-decoration: none;
     transition: background-color 1s ease-in-out;
+    overflow: hidden;
 }
 
 .submit:hover {

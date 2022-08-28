@@ -18,9 +18,17 @@
     width: 100%;
 }
 
-.lonelySingles {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+.numberInput {
+    font-size: 2em;
+    width:100%;
+    display: flex;
+    justify-content: right;
+    gap: 25px;
+    margin-bottom: 10px;
+}
+
+.numberInput input {
+    font-size: 1em;
 }
 
 .choices {

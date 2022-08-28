@@ -1,12 +1,26 @@
-import React, { useRef } from 'react';
+import React, { useRef, useImperativeHandle } from 'react';
 
 import styles from './SingleCharInput.module.css'
 
-const SingleCharInput = (props) => {
+const SingleCharInput = React.forwardRef((props, ref) => {
+    const inputRef = useRef();
+    
+    const focusOn = () => {
+        inputRef.current.focus();
+    };
+
+    useImperativeHandle(ref, () => {
+        return {
+            focus: focusOn,
+            value: props.value,
+        }
+    });
+
     return ( 
         <input
             className={styles.single}
             type="text"
+            ref={inputRef}
             maxLength={1}
             onChange={props.onChange}
             value={props.value}
@@ -14,6 +28,6 @@ const SingleCharInput = (props) => {
             placeholder={props.placeholder}
         />
     );
-};
+});
 
 export default SingleCharInput;
