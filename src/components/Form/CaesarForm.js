@@ -7,6 +7,7 @@ import Submit from '../UI/SubmitButton/Submit';
 import { URL, CAESARENDPOINT, errorMsgs } from '../../Constants';
 
 import styles from './Form.module.css';
+import LoadingModal from '../UI/LoadingPortal/LoadingModal';
 
 const codeReducer = (state, action) => {
     if(action.type === 'USER_INPUT') {
@@ -28,10 +29,17 @@ const codeReducer = (state, action) => {
 };
 
 export default function CaesarForm(props) {
+    // Shift no. state
     const [shift, setShift] = useState(1);
+    
+    // Error handling states
     const [codeError, setCodeError] = useState('');
     const [submitError, setSubmitError] = useState('');
 
+    // Loading handler
+    const [loading, setLoading] = useState(false);
+
+    // Code input handling dispatcher
     const [codeState, dispatchCode] = useReducer(codeReducer, {
         value: '',
         isValid: true,
@@ -87,12 +95,14 @@ export default function CaesarForm(props) {
             return;
         }
         setSubmitError("");
+        setLoading(true);
         const query = {
             code: codeState.value,
             shift: shift
         }
         fetch(`${URL}${CAESARENDPOINT}?${new URLSearchParams(query)}`)
         .then(res => {
+                setLoading(false);
                 if(res.status !== 200) {
                     throw new Error(res.statusText);
                 }
@@ -102,7 +112,8 @@ export default function CaesarForm(props) {
         }).catch(err => setSubmitError(err.message));
     }
 
-    return (
+    return (<>
+        {loading && <LoadingModal/>}
         <form onSubmit={submitCaesarHandler}>
             <ul className={styles.formList}>
                 <li className={styles.codeInput}>
@@ -139,5 +150,5 @@ export default function CaesarForm(props) {
                 </div>
             </ul>
         </form>
-    );
+    </>);
 }

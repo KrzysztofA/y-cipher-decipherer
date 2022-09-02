@@ -7,6 +7,7 @@ import Submit from '../UI/SubmitButton/Submit';
 import { URL, errorMsgs, RAILENDPOINT } from '../../Constants';
 
 import styles from './Form.module.css';
+import LoadingModal from '../UI/LoadingPortal/LoadingModal';
 
 const codeReducer = (state, action) => {
     if(action.type === 'USER_INPUT') {
@@ -28,15 +29,24 @@ const codeReducer = (state, action) => {
 };
 
 export default function CaesarForm(props) {
+    // Default amount of rails
     const [rails, setRails] = useState(1);
+    
+    // Error states
     const [codeError, setCodeError] = useState('');
     const [submitError, setSubmitError] = useState('');
 
+    // Loading state
+    const [loading, setLoading] = useState(false);
+
+    // Code handling reducer
     const [codeState, dispatchCode] = useReducer(codeReducer, {
         value: '',
         isValid: true,
     });
 
+
+    // Code input validator
     useEffect(() => {
         const codeTimeout = setTimeout(() => {
             if(!codeState.isValid) {
@@ -51,6 +61,7 @@ export default function CaesarForm(props) {
         };
     }, [codeState.isValid]);
 
+    // Code change handler
     const codeChangeHandler = (ev) => {
         dispatchCode({
             type: "USER_INPUT",
@@ -58,10 +69,12 @@ export default function CaesarForm(props) {
         });
     };
 
+    // Rails amount change handler
     const railsChangeHandler = (ev) => {
         setRails(ev.target.value);
     };
 
+    // Handler of behaviour when autofilled value used
     const fillChangeHandler = (value) => {
         if(value !== ' ') {
             const lastIdx = value.lastIndexOf(',');
@@ -90,12 +103,14 @@ export default function CaesarForm(props) {
             return;
         }
         setSubmitError("");
+        setLoading(true);
         const query = {
             code: codeState.value,
             rails: rails
         }
         fetch(`${URL}${RAILENDPOINT}?${new URLSearchParams(query)}`)
         .then(res => {
+                setLoading(false);
                 if(res.status !== 200) {
                     throw new Error(res.statusText);
                 }
@@ -105,7 +120,8 @@ export default function CaesarForm(props) {
         }).catch(err => setSubmitError(err.message));
     }
 
-    return (
+    return (<>
+        {loading && <LoadingModal/>}
         <form onSubmit={submitCaesarHandler}>
             <ul className={styles.formList}>
                 <li className={styles.codeInput}>
@@ -142,5 +158,5 @@ export default function CaesarForm(props) {
                 </div>
             </ul>
         </form>
-    );
+    </>);
 }

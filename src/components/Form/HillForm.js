@@ -8,6 +8,7 @@ import AutoFill from '../AutoFill/AutoFill';
 import { URL, HILLENDPOINT, errorMsgs } from '../../Constants';
 
 import styles from './Form.module.css';
+import LoadingModal from '../UI/LoadingPortal/LoadingModal';
 
 const codeReducer = (state, action) => {
     /* Function containing coded text input logic, validates whether code has 
@@ -47,7 +48,7 @@ const clueReducer = (state, action) => {
     if(action.type === 'USER_INPUT') {
         return {
             value: action.val,
-            isValid: (action.val.some(el => el.length > 0) && !action.val.some(el => el?.match(/([\d]|[^\w])/m) != null)) || action.val.forEach(el => el.length === 0),
+            isValid: (action.val.some(el => el.length > 0) && !action.val.some(el => el?.match(/([\d]|[^\w])/m) != null)) || action.val.every(el => el.length === 0),
         }
     }
     else if(action.type === 'AUTO_FILL') {
@@ -73,6 +74,9 @@ export default function HillForm(props) {
     const [errorTextInput, setErrorTextInput] = useState("");
     const [errorClueInput, setErrorClueInput] = useState("");
     const [errorSubmit, setErrorSubmit] = useState("");
+
+    // Loading state
+    const [loading, setLoading] = useState(false);
     
     // Reducer for the code input and clue input
     const [clueState, dispatchClue] = useReducer(clueReducer, {
@@ -146,12 +150,14 @@ export default function HillForm(props) {
             return;
         }
         setErrorSubmit("");
+        setLoading(true);
         const query = {
             code: codeState.value,
             clue: clueState.value.map((el) => el ? el : "_").join("")
         }
         fetch(`${URL}${HILLENDPOINT}?${new URLSearchParams(query)}`)
         .then(res => {
+                setLoading(false);
                 if(res.status !== 200) {
                     throw new Error(res.statusText);
                 }
@@ -161,7 +167,8 @@ export default function HillForm(props) {
         }).catch(err => setErrorSubmit(err.message));
     }
 
-    return (
+    return (<>
+        {loading && (<LoadingModal/>)}
         <form onSubmit={submitHillHandler}>
             <ul className={styles.formList}>
                 <li className={styles.codeInput}>
@@ -196,5 +203,5 @@ export default function HillForm(props) {
                 </div>
             </ul>
         </form>
-    );
+    </>);
 };
