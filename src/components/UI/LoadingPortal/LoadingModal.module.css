@@ -1,5 +1,7 @@
 .backdrop {
     position: absolute;
+    left: 0;
+    top: 0;
     z-index: 50;
     min-width: 100vw;
     min-height: 100vh;
@@ -7,15 +9,18 @@
 }
 
 .center {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 100;
 }
 
 .center span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: white;
     font-size: 2em;
     text-transform: uppercase;
@@ -25,7 +30,6 @@
 }
 
 .ring {
-    position: absolute;
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -35,15 +39,15 @@
 @keyframes ring {
     0% {
         transform: rotate(0deg);
-        box-shadow: 1px 5px 2px rgb(125, 44, 44);
+        box-shadow: 2px 5px 2px orangered;
     }
     50% {
         transform: rotate(180deg);
-        box-shadow: 1px 5px 2px rgb(33, 136, 122);
+        box-shadow: 2px 5px 2px greenyellow;
     }
     100% {
         transform: rotate(360deg);
-        box-shadow: 1px 5px 2px rgb(87, 27, 156);
+        box-shadow: 2px 5px 2px violet;
     }
 }
 
@@ -55,5 +59,5 @@
     height: 100%;
     width: 100%;
     border-radius: 50%;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 5px white;
 }

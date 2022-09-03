@@ -9,7 +9,7 @@ import Content from "./components/UI/Content/Content";
 import TabContainer from "./components/UI/Tab/TabContainer";
 
 const RailCipher = () => {
-  const [output, setOutput] = React.useState(null);
+  const [output, setOutput] = useState(null);
 
   return (<>
     <h3>Y-Rail Cipher Decipherer</h3>
@@ -23,7 +23,7 @@ const RailCipher = () => {
 }
 
 const CaesarCipher = () => {
-  const [output, setOutput] = React.useState(null);
+  const [output, setOutput] = useState(null);
 
   return (<>
     <h3>Y-Caesar Cipher Decipherer</h3>
@@ -37,7 +37,7 @@ const CaesarCipher = () => {
 }
 
 const HillCipher = () => {
-  const [output, setOutput] = React.useState(null);
+  const [output, setOutput] = useState(null);
 
   return (<>
     <h3>Y-Hill Cipher Decipherer</h3>
@@ -51,7 +51,7 @@ const HillCipher = () => {
 }
 
 function App() {
-  const [currentTab, setCurrentTab] = React.useState(0);
+  const [currentTab, setCurrentTab] = useState(0);
 
   return (
   <>

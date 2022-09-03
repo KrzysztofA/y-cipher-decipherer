@@ -90,6 +90,7 @@ export default function HillForm(props) {
         nonValidIpt: false,
     });
 
+    // Effect handling clue error display. After keypress waits 0.5 sec and then if invalid input displays it in error
     useEffect(() => {
         const clueTimeout = setTimeout(() => {
             setErrorClueInput(clueState.isValid ? "" : errorMsgs.InvalidChar);
@@ -97,6 +98,7 @@ export default function HillForm(props) {
         return () => { clearTimeout(clueTimeout); };
     }, [clueState.isValid]);
 
+    // Effect handling code error display. After change input reevaluates 0.5 sec timer checking if the input is valid.
     useEffect(() => {
         const codeTimeout = setTimeout(() => {
             if(!codeState.isValid) {
@@ -112,6 +114,7 @@ export default function HillForm(props) {
         return () => { clearTimeout(codeTimeout); }
     }, [codeState.isValid, codeState.fourMore])
 
+    // Sets the change to the code input via reducer
     const codeInputChangeHandler = (ev) => {
         dispatchCode({
             type: 'USER_INPUT', 
@@ -119,6 +122,7 @@ export default function HillForm(props) {
         });
     };
 
+    // Called when code and clue are autofilled with an example
     const fillChangeHandler = (value) => {
         if(value !== ' ') {
             let valList = value.split(',');
@@ -143,6 +147,7 @@ export default function HillForm(props) {
         });
     }};   
 
+    // On Submits calls the back end to compute hill cipher based on code and clue provided
     const submitHillHandler = (ev) => {
         ev.preventDefault();
         if(!codeState.isValid || !clueState.isValid) {
