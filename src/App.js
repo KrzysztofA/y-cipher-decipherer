@@ -53,6 +53,8 @@ const HillCipher = () => {
 function App() {
   const [currentTab, setCurrentTab] = useState(0);
 
+  const tabs = [<HillCipher/>, <CaesarCipher/>, <RailCipher/>];
+
   return (
   <>
     <Content>
@@ -61,7 +63,7 @@ function App() {
         setActiveTab={setCurrentTab}
       />
       {
-        currentTab === 0 ? <HillCipher/> : currentTab === 1 ? <CaesarCipher/> : <RailCipher/>
+        tabs[currentTab]
       }
       <Footer/>
     </Content>
