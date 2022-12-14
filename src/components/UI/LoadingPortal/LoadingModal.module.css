@@ -1,63 +1,63 @@
 .backdrop {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 50;
-    min-width: 100vw;
-    min-height: 100vh;
-    background-color: rgba(0,0,0, 0.7);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 50;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 100;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
 }
 
 .center span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 2em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    line-height: 200px;
-    z-index: 100;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 200px;
+  z-index: 100;
 }
 
 .ring {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    animation: ring 2s linear infinite;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  animation: ring 2s linear infinite;
 }
 
 @keyframes ring {
-    0% {
-        transform: rotate(0deg);
-        box-shadow: 2px 5px 2px orangered;
-    }
-    50% {
-        transform: rotate(180deg);
-        box-shadow: 2px 5px 2px greenyellow;
-    }
-    100% {
-        transform: rotate(360deg);
-        box-shadow: 2px 5px 2px violet;
-    }
+  0% {
+    transform: rotate(0deg);
+    box-shadow: 2px 5px 2px orangered;
+  }
+  50% {
+    transform: rotate(180deg);
+    box-shadow: 2px 5px 2px greenyellow;
+  }
+  100% {
+    transform: rotate(360deg);
+    box-shadow: 2px 5px 2px violet;
+  }
 }
 
 .ring::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
-    box-shadow: 0 0 5px white;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  box-shadow: 0 0 5px white;
 }
