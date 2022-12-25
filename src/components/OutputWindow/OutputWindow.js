@@ -1,27 +1,44 @@
-import React, { useEffect } from "react";
+import styles from "./OutputWindow.module.css";
 
-import styles from "./OutputWindow.module.css"
+const OutputWindow = (props) => {
+	return (
+		<>
+			<div className={styles.window}>
+				{props.output?.map((element, i) => {
+					if (element.decodedMsg) {
+						return (
+							<div
+								key={`line${i}`}
+								className={styles.line}
+							>
+								{element.decodedMsg}
+							</div>
+						);
+					} else if (element.message) {
+						return (
+							<div
+								key={`line${i}`}
+								className={styles.line}
+							>
+								{element.message}
+							</div>
+						);
+					} else if (element.altMessage) {
+						return (
+							<div
+								key={`line${i}`}
+								className={styles.line}
+							>
+								{element.altMessage}
+							</div>
+						);
+					} else {
+						return "";
+					}
+				})}
+			</div>
+		</>
+	);
+};
 
-export default function OutputWindow(props) {
-    useEffect(() => {
-        if(props.output) {
-        }
-    }, [props.output]);
-
-    return (<>
-        <div className={styles.window}>
-            {props.output?.map((el, i) => {
-                if(el.decodedMsg) {
-                    return <div key={`line${i}`} className={styles.line}>{el.decodedMsg}</div>
-                }
-                else if(el.message) {
-                    return <div key={`line${i}`} className={styles.line}>{el.message}</div>
-                }
-                else if(el.altMessage) {
-                    return <div key={`line${i}`} className={styles.line}>{el.altMessage}</div>
-                }
-            })}
-        </div>
-        </>
-    )
-}
+export default OutputWindow;

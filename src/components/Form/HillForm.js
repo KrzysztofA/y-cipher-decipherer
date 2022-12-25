@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import { useState, useReducer, useContext } from "react";
 
 import ClueInput from "../ClueInput/ClueInput";
 import Submit from "../UI/SubmitButton/Submit";
@@ -10,6 +10,9 @@ import { URL, HILLENDPOINT, ERROSMESSAGES } from "../../Constants";
 import styles from "./Form.module.css";
 import LoadingModal from "../UI/LoadingPortal";
 import useFetch from "../../hooks/low/useFetch";
+import useErrorHandler from "../../hooks/high/useErrorHandler";
+
+import FormContext from "../../hooks/context/FormContext";
 
 const codeReducer = (state, action) => {
 	/* Function containing coded text input logic, validates whether code has 
@@ -71,13 +74,7 @@ export default function HillForm(props) {
 	/* Function containing the form and logic behind the form for the hill cipher
      decoding. */
 
-	// States for the Error Messages
-	const [errorTextInput, setErrorTextInput] = useState("");
-	const [errorClueInput, setErrorClueInput] = useState("");
-	const [errorSubmit, setErrorSubmit] = useState("");
-
-	// Loading state
-	const [loading, setLoading] = useState(false);
+	const { loading, startLoading, stopLoading } = useContext(FormContext);
 
 	// Reducer for the code input and clue input
 	const [clueState, dispatchClue] = useReducer(clueReducer, {
@@ -91,31 +88,16 @@ export default function HillForm(props) {
 		nonValidIpt: false,
 	});
 
-	// Effect handling clue error display. After keypress waits 0.5 sec and then if invalid input displays it in error
-	useEffect(() => {
-		const clueTimeout = setTimeout(() => {
-			setErrorClueInput(clueState.isValid ? "" : ERROSMESSAGES.InvalidChar);
-		}, 500);
-		return () => {
-			clearTimeout(clueTimeout);
-		};
-	}, [clueState.isValid]);
+	// States for the Error Messages
+	const errorCodeInput = useErrorHandler(codeState.isValid, () =>
+		codeState.fourMore ? ERROSMESSAGES.MINIMUM_FOUR : ERROSMESSAGES.INVALID_CHAR
+	);
 
-	// Effect handling code error display. After change input reevaluates 0.5 sec timer checking if the input is valid.
-	useEffect(() => {
-		const codeTimeout = setTimeout(() => {
-			if (!codeState.isValid) {
-				setErrorTextInput(
-					codeState.fourMore ? ERROSMESSAGES.MinFour : ERROSMESSAGES.InvalidChar
-				);
-			} else {
-				setErrorTextInput("");
-			}
-		}, 500);
-		return () => {
-			clearTimeout(codeTimeout);
-		};
-	}, [codeState.isValid, codeState.fourMore]);
+	const errorClueInput = useErrorHandler(
+		clueState.isValid,
+		() => ERROSMESSAGES.INVALID_CHAR
+	);
+	const [errorSubmit, setErrorSubmit] = useState("");
 
 	// Sets the change to the code input via reducer
 	const codeInputChangeHandler = (ev) => {
@@ -162,7 +144,7 @@ export default function HillForm(props) {
 			return;
 		}
 		setErrorSubmit("");
-		setLoading(true);
+		startLoading();
 		const query = {
 			code: codeState.value,
 			clue: clueState.value.map((el) => (el ? el : "_")).join(""),
@@ -179,7 +161,7 @@ export default function HillForm(props) {
 				setErrorSubmit(err.message);
 			})
 			.finally(() => {
-				setLoading(false);
+				stopLoading();
 			});
 	};
 
@@ -195,7 +177,7 @@ export default function HillForm(props) {
 							value={codeState.value}
 							placeholder="Enter coded text"
 						/>
-						<div className={styles.errorMessage}>{errorTextInput}</div>
+						<div className={styles.errorMessage}>{errorCodeInput}</div>
 					</li>
 					<li>
 						<ClueInput
@@ -206,7 +188,7 @@ export default function HillForm(props) {
 					<div className={styles.errorMessage}>{errorClueInput}</div>
 					<li className={styles.choices}>
 						<AutoFill
-							dataSource="./samplesHill.json"
+							dataSource="samplesHill.json"
 							changeHandler={fillChangeHandler}
 						/>
 						<Submit />

@@ -1,10 +1,16 @@
+import { useContext } from "react";
+
 import styles from "./Tab.module.css";
 
-const Tab = ({ active, onClick, children }) => {
+import TabContext from "../../../hooks/context/TabContext";
+
+const Tab = ({ children, ownedTab }) => {
+	const { tab, setTab } = useContext(TabContext);
+
 	return (
 		<div
-			className={`${styles.tab} ${active ? styles.active : ""}`}
-			onClick={onClick}
+			className={`${styles.tab} ${ownedTab === tab ? styles.active : ""}`}
+			onClick={() => setTab(ownedTab)}
 			tabIndex="0"
 		>
 			{children}

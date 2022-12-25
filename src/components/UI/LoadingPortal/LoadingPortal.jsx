@@ -17,7 +17,7 @@ const LoadingIndicator = () => {
 	);
 };
 
-const LoadingModal = () => {
+const LoadingPortal = () => {
 	return (
 		<>
 			{createPortal(
@@ -29,4 +29,4 @@ const LoadingModal = () => {
 	);
 };
 
-export default LoadingModal;
+export default LoadingPortal;

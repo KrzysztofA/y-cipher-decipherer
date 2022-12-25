@@ -1,6 +1,6 @@
 import styles from "./Submit.module.css";
 
-export default function Submit() {
+const Submit = () => {
 	return (
 		<button
 			type="submit"
@@ -9,4 +9,6 @@ export default function Submit() {
 			Compute
 		</button>
 	);
-}
+};
+
+export default Submit;

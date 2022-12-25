@@ -146,7 +146,7 @@ export default function CaesarForm(props) {
 					</li>
 					<li className={styles.choices}>
 						<AutoFill
-							dataSource="./samplesCaesar.json"
+							dataSource="samplesCaesar.json"
 							changeHandler={fillChangeHandler}
 						/>
 						<Submit />

@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-import Footer from "./components/Footer/Footer";
-import HillForm from "./components/Form/HillForm";
+import TabContext from "./hooks/context/TabContext";
+
+import Footer from "./components/Footer";
+import HillCipher from "./pages/HillCipher";
 import CaesarForm from "./components/Form/CaesarForm";
 import RailForm from "./components/Form/RailForm";
-import OutputWindow from "./components/OutputWindow/OutputWindow";
-import Content from "./components/UI/Content/Content";
-import TabContainer from "./components/UI/TabContainer";
+import OutputWindow from "./components/OutputWindow";
+import Content from "./components/UI/Content";
+import TabContainer from "./components/TabContainer";
 
 const RailCipher = () => {
 	const [output, setOutput] = useState(null);
-
 	return (
 		<>
 			<h3>Y-Rail Cipher Decipherer</h3>
@@ -32,38 +33,28 @@ const CaesarCipher = () => {
 	);
 };
 
-const HillCipher = () => {
-	const [output, setOutput] = useState(null);
-
-	return (
-		<>
-			<h3>Y-Hill Cipher Decipherer</h3>
-			<HillForm setOutput={setOutput} />
-			<OutputWindow output={output} />
-		</>
-	);
-};
-
 function App() {
-	const [currentTab, setCurrentTab] = useState(0);
+	const [tab, setTab] = useState(0);
 
 	return (
-		<>
+		<TabContext.Provider
+			value={{
+				tab: tab,
+				setTab: setTab,
+			}}
+		>
 			<Content>
-				<TabContainer
-					activeTab={currentTab}
-					setActiveTab={setCurrentTab}
-				/>
-				{currentTab === 0 ? (
+				<TabContainer />
+				{tab === 0 ? (
 					<HillCipher />
-				) : currentTab === 1 ? (
+				) : tab === 1 ? (
 					<CaesarCipher />
 				) : (
 					<RailCipher />
 				)}
-				<Footer />
+				<Footer href="https://krzysztof-siatkowski.vercel.app" />
 			</Content>
-		</>
+		</TabContext.Provider>
 	);
 }
 

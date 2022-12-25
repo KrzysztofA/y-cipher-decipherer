@@ -150,7 +150,7 @@ const RailForm = (props) => {
 					</li>
 					<li className={styles.choices}>
 						<AutoFill
-							dataSource="./samplesRail.json"
+							dataSource="samplesRail.json"
 							changeHandler={fillChangeHandler}
 						/>
 						<Submit />
