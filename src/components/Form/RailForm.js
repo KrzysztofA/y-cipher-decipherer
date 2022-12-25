@@ -4,7 +4,7 @@ import TextInput from "../UI/TextInput/TextInput";
 import AutoFill from "../AutoFill/AutoFill";
 import Submit from "../UI/SubmitButton/Submit";
 
-import { URL, ERROSMESSAGES, RAILENDPOINT } from "../../Constants";
+import { URL, ERRORMESSAGES, RAILENDPOINT } from "../../Constants";
 
 import styles from "./Form.module.css";
 import LoadingModal from "../UI/LoadingPortal";
@@ -49,7 +49,7 @@ const RailForm = (props) => {
 	useEffect(() => {
 		const codeTimeout = setTimeout(() => {
 			if (!codeState.isValid) {
-				setCodeError(ERROSMESSAGES.MINIMUM_TWO);
+				setCodeError(ERRORMESSAGES.MINIMUM_TWO);
 			} else {
 				setCodeError("");
 			}
@@ -98,7 +98,7 @@ const RailForm = (props) => {
 	const submitCaesarHandler = (ev) => {
 		ev.preventDefault();
 		if (!codeState.isValid) {
-			setSubmitError(ERROSMESSAGES.SUBMIT);
+			setSubmitError(ERRORMESSAGES.SUBMIT);
 			return;
 		}
 		setSubmitError("");

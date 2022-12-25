@@ -3,7 +3,7 @@ const HILLENDPOINT = "decode/hillcipher";
 const CAESARENDPOINT = "decode/caesarcipher";
 const RAILENDPOINT = "decode/railcipher";
 
-const ERROSMESSAGES = {
+const ERRORMESSAGES = {
 	// Error Messages present throughout the errors
 	MINIMUM_FOUR: "Enter minimum of four characters",
 	MINIMUM_TWO: "Enter minimum of two characters",
@@ -11,4 +11,4 @@ const ERROSMESSAGES = {
 	SUBMIT: "Correct all errors before submitting",
 };
 
-export { URL, HILLENDPOINT, CAESARENDPOINT, RAILENDPOINT, ERROSMESSAGES };
+export { URL, HILLENDPOINT, CAESARENDPOINT, RAILENDPOINT, ERRORMESSAGES };

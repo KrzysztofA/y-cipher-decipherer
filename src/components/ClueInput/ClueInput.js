@@ -15,10 +15,9 @@ export default function ClueInput(props) {
 	const clueChange = (ev) => {
 		const refs = [clue1, clue2, clue3, clue4];
 		const idx = parseInt(ev.target.id.split("#")[1]) - 1;
-		props.dispatchClue({
-			type: "USER_INPUT",
-			val: props.value.map((el, i) => (i === idx ? ev.target.value : el)),
-		});
+		props.dispatchClue(
+			props.value.map((el, i) => (i === idx ? ev.target.value : el))
+		);
 		if (ev.target.value?.length > 0 && idx < 3) {
 			refs[idx + 1].current.focus();
 		} else if (ev.target.value?.length === 0 && idx > 0) {

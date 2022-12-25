@@ -30,9 +30,3 @@
 .numberInput input {
 	font-size: 1em;
 }
-
-.choices {
-	display: grid;
-	grid-template-columns: 50% 50%;
-	gap: 5px;
-}

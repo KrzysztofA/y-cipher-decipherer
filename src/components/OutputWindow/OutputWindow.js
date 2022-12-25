@@ -1,42 +1,30 @@
+import { useContext } from "react";
+
 import styles from "./OutputWindow.module.css";
 
-const OutputWindow = (props) => {
+import OutputContext from "../../hooks/context/OutputContext";
+
+const OutputWindow = () => {
+	const { output } = useContext(OutputContext);
+
 	return (
 		<>
-			<div className={styles.window}>
-				{props.output?.map((element, i) => {
-					if (element.decodedMsg) {
+			<ul className={styles.window}>
+				{output?.map((element, i) => {
+					if (element.message) {
 						return (
-							<div
-								key={`line${i}`}
-								className={styles.line}
-							>
-								{element.decodedMsg}
-							</div>
-						);
-					} else if (element.message) {
-						return (
-							<div
+							<li
 								key={`line${i}`}
 								className={styles.line}
 							>
 								{element.message}
-							</div>
-						);
-					} else if (element.altMessage) {
-						return (
-							<div
-								key={`line${i}`}
-								className={styles.line}
-							>
-								{element.altMessage}
-							</div>
+							</li>
 						);
 					} else {
 						return "";
 					}
 				})}
-			</div>
+			</ul>
 		</>
 	);
 };

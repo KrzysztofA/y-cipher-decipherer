@@ -4,7 +4,7 @@ import TextInput from "../UI/TextInput/TextInput";
 import AutoFill from "../AutoFill/AutoFill";
 import Submit from "../UI/SubmitButton/Submit";
 
-import { URL, CAESARENDPOINT, ERROSMESSAGES } from "../../Constants";
+import { URL, CAESARENDPOINT, ERRORMESSAGES } from "../../Constants";
 
 import styles from "./Form.module.css";
 import LoadingModal from "../UI/LoadingPortal";
@@ -48,7 +48,7 @@ export default function CaesarForm(props) {
 	useEffect(() => {
 		const codeTimeout = setTimeout(() => {
 			if (!codeState.isValid) {
-				setCodeError(ERROSMESSAGES.INVALID_CHAR);
+				setCodeError(ERRORMESSAGES.INVALID_CHAR);
 			} else {
 				setCodeError("");
 			}
@@ -91,7 +91,7 @@ export default function CaesarForm(props) {
 	const submitCaesarHandler = (ev) => {
 		ev.preventDefault();
 		if (!codeState.isValid) {
-			setSubmitError(ERROSMESSAGES.SUBMIT);
+			setSubmitError(ERRORMESSAGES.SUBMIT);
 			return;
 		}
 		setSubmitError("");
@@ -106,9 +106,9 @@ export default function CaesarForm(props) {
 				return res.json();
 			})
 			.then((json) => {
-				props.setOutput([
+				props.setOutput(() => [
 					{ message: json.message },
-					{ altMessage: json.altMessage },
+					{ message: json.altMessage },
 				]);
 			})
 			.catch((err) => {
