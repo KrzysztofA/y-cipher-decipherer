@@ -8,6 +8,7 @@ import { URL, CAESARENDPOINT, ERROSMESSAGES } from "../../Constants";
 
 import styles from "./Form.module.css";
 import LoadingModal from "../UI/LoadingPortal";
+import useFetch from "../../hooks/low/useFetch";
 
 const codeReducer = (state, action) => {
 	if (action.type === "USER_INPUT") {
@@ -85,6 +86,8 @@ export default function CaesarForm(props) {
 		}
 	};
 
+	const handleFetch = useFetch(URL, CAESARENDPOINT);
+
 	const submitCaesarHandler = (ev) => {
 		ev.preventDefault();
 		if (!codeState.isValid) {
@@ -97,12 +100,9 @@ export default function CaesarForm(props) {
 			code: codeState.value,
 			shift: shift,
 		};
-		fetch(`${URL}${CAESARENDPOINT}?${new URLSearchParams(query)}`)
+		handleFetch(query)
 			.then((res) => {
-				setLoading(false);
-				if (res.status !== 200) {
-					throw new Error(res.statusText);
-				}
+				if (res.status !== 200) throw new Error(res.statusText);
 				return res.json();
 			})
 			.then((json) => {
@@ -111,7 +111,12 @@ export default function CaesarForm(props) {
 					{ altMessage: json.altMessage },
 				]);
 			})
-			.catch((err) => setSubmitError(err.message));
+			.catch((err) => {
+				setSubmitError(err.message);
+			})
+			.finally(() => {
+				setLoading(false);
+			});
 	};
 
 	return (

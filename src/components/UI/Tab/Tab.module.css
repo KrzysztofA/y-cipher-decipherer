@@ -1,39 +1,31 @@
-.tabContainer {
-    display: grid;
-    height: 3em;
-    grid-template-columns: 1fr 1fr 1fr;
-    border-bottom: 1px solid;
-    padding-bottom: 55px;
-    margin-bottom: 2px;
-}
-
 .tab {
-    user-select: none;
-    overflow: hidden;
-    text-align: center;
-    height: 2em;
-    line-height: 2em;
-    cursor: pointer;
-    background-color: rgba(192, 192, 192, 0.5);
-    color: white;
-    font-weight: bold;
-    text-shadow: 1px 1px 1px rgba(255, 0, 0, 0.5);
-    margin: 5px;
-    border-radius: 5px;
-    transition: background-color 1s ease-out;
+	user-select: none;
+	overflow: hidden;
+	text-align: center;
+	height: 2em;
+	line-height: 2em;
+	cursor: pointer;
+	background-color: rgba(192, 192, 192, 0.5);
+	color: white;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px rgba(255, 0, 0, 0.5);
+	margin: 5px;
+	border-radius: 5px;
+	transition: background-color 1s ease-out;
 }
 
-.tab:hover:not(.active), .tab:focus:not(.active) {
-    background-color: rgba(255, 68, 0, 0.5);
+.tab:hover:not(.active),
+.tab:focus:not(.active) {
+	background-color: rgba(255, 68, 0, 0.5);
 }
 
 .tab.active {
-    box-shadow: inset -1px -1px 3px 1px rgba(255, 255, 255, 1),
-    inset 1px 1px 3px 1px rgba(0, 0, 0, 1);
-    cursor: default;
+	box-shadow: inset -1px -1px 3px 1px rgba(255, 255, 255, 1),
+		inset 1px 1px 3px 1px rgba(0, 0, 0, 1);
+	cursor: default;
 }
 
 .tab:active:not(.active) {
-    box-shadow: inset 1px 1px 3px 1px rgba(255, 255, 255, 1),
-    inset -1px -1px 3px 1px rgba(0, 0, 0, 1);
+	box-shadow: inset 1px 1px 3px 1px rgba(255, 255, 255, 1),
+		inset -1px -1px 3px 1px rgba(0, 0, 0, 1);
 }

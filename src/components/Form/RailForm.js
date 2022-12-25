@@ -93,12 +93,7 @@ const RailForm = (props) => {
 		}
 	};
 
-	const query = {
-		code: codeState.value,
-		rails: rails,
-	};
-
-	const handleFetch = useFetch(URL, RAILENDPOINT, query);
+	const handleFetch = useFetch(URL, RAILENDPOINT);
 
 	const submitCaesarHandler = (ev) => {
 		ev.preventDefault();
@@ -108,7 +103,11 @@ const RailForm = (props) => {
 		}
 		setSubmitError("");
 		setLoading(true);
-		handleFetch()
+		const query = {
+			code: codeState.value,
+			rails: rails,
+		};
+		handleFetch(query)
 			.then((res) => {
 				if (res.status !== 200) throw new Error(res.statusText);
 				return res.json();

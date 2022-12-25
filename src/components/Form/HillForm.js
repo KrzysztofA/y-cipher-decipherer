@@ -9,6 +9,7 @@ import { URL, HILLENDPOINT, ERROSMESSAGES } from "../../Constants";
 
 import styles from "./Form.module.css";
 import LoadingModal from "../UI/LoadingPortal";
+import useFetch from "../../hooks/low/useFetch";
 
 const codeReducer = (state, action) => {
 	/* Function containing coded text input logic, validates whether code has 
@@ -151,6 +152,8 @@ export default function HillForm(props) {
 		}
 	};
 
+	const handleFetch = useFetch(URL, HILLENDPOINT);
+
 	// On Submits calls the back end to compute hill cipher based on code and clue provided
 	const submitHillHandler = (ev) => {
 		ev.preventDefault();
@@ -164,18 +167,20 @@ export default function HillForm(props) {
 			code: codeState.value,
 			clue: clueState.value.map((el) => (el ? el : "_")).join(""),
 		};
-		fetch(`${URL}${HILLENDPOINT}?${new URLSearchParams(query)}`)
+		handleFetch(query)
 			.then((res) => {
-				setLoading(false);
-				if (res.status !== 200) {
-					throw new Error(res.statusText);
-				}
+				if (res.status !== 200) throw new Error(res.statusText);
 				return res.json();
 			})
 			.then((json) => {
 				props.setOutput(json.possibleMessages);
 			})
-			.catch((err) => setErrorSubmit(err.message));
+			.catch((err) => {
+				setErrorSubmit(err.message);
+			})
+			.finally(() => {
+				setLoading(false);
+			});
 	};
 
 	return (
