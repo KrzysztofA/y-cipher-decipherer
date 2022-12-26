@@ -26,7 +26,7 @@ const useFormSubmit = (condition) => {
 		}
 		startLoading();
 		resetError();
-		handleFetch(query)
+		handleFetch(query())
 			.then((res) => {
 				if (!res.ok) throw new Error(res.statusText);
 				return res.json();

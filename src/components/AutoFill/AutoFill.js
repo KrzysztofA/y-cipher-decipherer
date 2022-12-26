@@ -3,7 +3,7 @@ import FormContext from "../../hooks/context/FormContext";
 
 import styles from "./AutoFill.module.css";
 
-export default function AutoFill(props) {
+const AutoFill = () => {
 	/* 
         Holds a collection of samples to use with the given cipher
         Data fetched from a single json file ideally passed by props.
@@ -13,7 +13,7 @@ export default function AutoFill(props) {
 	const [samples, setSamples] = useState(null);
 	const [selectedOption, setSelectedOption] = useState(null);
 
-	const { dataSource } = useContext(FormContext);
+	const { dataSource, fillHandle } = useContext(FormContext);
 
 	// Load data on initial component mount, works once
 	useEffect(() => {
@@ -22,16 +22,10 @@ export default function AutoFill(props) {
 	}, [dataSource]);
 
 	// Set selected option to the chosen option whenever the options is chosen
-	const fillChangeHandler = (ev) => {
-		setSelectedOption(ev.target.value);
+	const fillChangeHandler = (event) => {
+		setSelectedOption(event.target.value);
+		fillHandle(event.target.value);
 	};
-
-	// On select change send this data to be set for the inputs, works whenever options is chosen, doesn't work on mount
-	useEffect(() => {
-		if (selectedOption) {
-			props.changeHandler(selectedOption);
-		}
-	}, [selectedOption]);
 
 	return (
 		<select
@@ -57,4 +51,6 @@ export default function AutoFill(props) {
 			})}
 		</select>
 	);
-}
+};
+
+export default AutoFill;

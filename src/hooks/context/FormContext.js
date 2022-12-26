@@ -9,6 +9,18 @@ const FormContext = createContext({
 	onSubmit: () => {},
 	startLoading: () => {},
 	stopLoading: () => {},
+	errorHandles: [],
+	fillHandle: () => {},
+	codeHandle: {
+		codeState: null,
+		userDispatchCode: null,
+		fillDispatchCode: null,
+	},
+	clueHandle: {
+		clueState: null,
+		userDispatchClue: null,
+		fillDispatchClue: null,
+	},
 });
 
 export default FormContext;
