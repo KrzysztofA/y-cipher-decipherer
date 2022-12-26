@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import FormContext from "../../hooks/context/FormContext";
 
 import styles from "./AutoFill.module.css";
 
@@ -12,11 +13,13 @@ export default function AutoFill(props) {
 	const [samples, setSamples] = useState(null);
 	const [selectedOption, setSelectedOption] = useState(null);
 
+	const { dataSource } = useContext(FormContext);
+
 	// Load data on initial component mount, works once
 	useEffect(() => {
-		const sampleData = require(`/assets/data/${props.dataSource}`);
+		const sampleData = require(`/assets/data/${dataSource}`);
 		setSamples(sampleData);
-	}, [props.dataSource]);
+	}, [dataSource]);
 
 	// Set selected option to the chosen option whenever the options is chosen
 	const fillChangeHandler = (ev) => {

@@ -82,7 +82,7 @@ export default function HillForm(props) {
 			{loading && <LoadingModal />}
 			<form onSubmit={submitHandler}>
 				<ul className={styles.formList}>
-					<li className={styles.codeInput}>
+					<li>
 						<TextInput
 							id="code"
 							onChange={codeInputChangeHandler}
@@ -98,11 +98,8 @@ export default function HillForm(props) {
 						/>
 					</li>
 					<div className={styles.errorMessage}>{errorClueInput}</div>
-					<li className={styles.choices}>
-						<AutoFill
-							dataSource="samplesHill.json"
-							changeHandler={autoFillHandler}
-						/>
+					<li>
+						<AutoFill changeHandler={autoFillHandler} />
 						<Submit />
 					</li>
 					<div className={styles.errorMessage}>{submitError}</div>

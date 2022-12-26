@@ -9,21 +9,22 @@ import FormContext from "../../hooks/context/FormContext";
 import OutputContext from "../../hooks/context/OutputContext";
 import useLoading from "../../hooks/low/useLoading";
 
+const outputFormat = (json) => {
+	return json.possibleMessages.map((msg) => {
+		return { message: msg.decodedMsg };
+	});
+};
+
 const HillCipher = () => {
 	const [loading, startLoading, stopLoading] = useLoading();
 	const [output, setOutput] = useState(null);
-
-	const outputFormat = useCallback((json) => {
-		return json.possibleMessages.map((msg) => {
-			return { message: msg.decodedMsg };
-		});
-	}, []);
 
 	return (
 		<FormContext.Provider
 			value={{
 				url: URL,
 				endpoint: HILLENDPOINT,
+				dataSource: "samplesHill.json",
 				loading: loading,
 				startLoading: startLoading,
 				stopLoading: stopLoading,
