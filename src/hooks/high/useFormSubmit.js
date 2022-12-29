@@ -8,10 +8,9 @@ import OutputContext from "../context/OutputContext";
 
 import { ERRORMESSAGES } from "../../Constants";
 
-const useFormSubmit = (condition) => {
+const useFormSubmit = (condition, startLoading, stopLoading) => {
 	// Contexts
-	const { startLoading, stopLoading, url, endpoint, query } =
-		useContext(FormContext);
+	const { url, endpoint, query } = useContext(FormContext);
 	const { setOutput, formatOutput } = useContext(OutputContext);
 
 	// Hooks

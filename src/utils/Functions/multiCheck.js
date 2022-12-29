@@ -1,4 +1,4 @@
-import Condition from "./Condition";
+import Condition from "../Classes/Condition";
 
 const multiCheck = (input, conditions = [Condition]) => {
 	let error = "";

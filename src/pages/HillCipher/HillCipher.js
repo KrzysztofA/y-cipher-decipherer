@@ -10,7 +10,6 @@ import OutputContext from "../../hooks/context/OutputContext";
 
 import useErrorHandler from "../../hooks/high/useErrorHandler";
 import useInputReducer from "../../hooks/reducers/useInputReducer";
-import useLoading from "../../hooks/low/useLoading";
 
 import { greaterThanFour, onlyLetters, emptyOrOnlyLetters } from "../../utils";
 
@@ -21,7 +20,6 @@ const formatOutput = (json) => {
 };
 
 const HillCipher = () => {
-	const [loading, startLoading, stopLoading] = useLoading();
 	const [output, setOutput] = useState(null);
 
 	const [clueState, userDispatchClue, fillDispatchClue] = useInputReducer(
@@ -75,9 +73,6 @@ const HillCipher = () => {
 				endpoint: HILLENDPOINT,
 				dataSource: "samplesHill.json",
 				query: query,
-				loading: loading,
-				startLoading: startLoading,
-				stopLoading: stopLoading,
 				fillHandle: fillHandle,
 				errorHandles: [errorCodeInput, errorClueInput],
 				codeHandle: { codeState, userDispatchCode, fillDispatchCode },

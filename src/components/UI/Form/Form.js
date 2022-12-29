@@ -6,13 +6,18 @@ import FormContext from "../../../hooks/context/FormContext";
 
 import useFormSubmit from "../../../hooks/high/useFormSubmit";
 import LoadingPortal from "../LoadingPortal";
+import useLoading from "../../../hooks/low/useLoading";
 
 const Form = ({ children }) => {
-	const { loading, codeHandle, clueHandle } = useContext(FormContext);
+	const { codeHandle, clueHandle } = useContext(FormContext);
+
+	const [loading, startLoading, stopLoading] = useLoading();
 
 	// On Submits calls the back end to compute hill cipher based on code and clue provided
 	const [submitHandler, submitError] = useFormSubmit(
-		() => codeHandle.codeState.valid && clueHandle.clueState.valid
+		() => codeHandle.codeState.valid && clueHandle.clueState.valid,
+		startLoading,
+		stopLoading
 	);
 
 	return (

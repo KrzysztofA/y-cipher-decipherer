@@ -6,9 +6,6 @@ const FormContext = createContext({
 	dataSource: "",
 	loading: false,
 	query: () => {},
-	onSubmit: () => {},
-	startLoading: () => {},
-	stopLoading: () => {},
 	errorHandles: [],
 	fillHandle: () => {},
 	codeHandle: {

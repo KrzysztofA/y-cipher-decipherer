@@ -1,8 +1,8 @@
 // Utility Classes
-import Condition from "./Condition";
+import Condition from "./Classes/Condition";
 
 // Utility Functions
-import multiCheck from "./multiCheck";
+import multiCheck from "./Functions/multiCheck";
 
 // Utility Objects
 import {
@@ -10,7 +10,7 @@ import {
 	greaterThanTwo,
 	onlyLetters,
 	emptyOrOnlyLetters,
-} from "./conditions";
+} from "./Objects/conditions";
 
 export {
 	Condition,

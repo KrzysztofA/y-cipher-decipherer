@@ -1,6 +1,6 @@
-import Condition from "./Condition";
+import Condition from "../Classes/Condition";
 
-import { ERRORMESSAGES } from "../Constants";
+import { ERRORMESSAGES } from "../../Constants";
 
 const greaterThanFour = new Condition((value) => {
 	return value.length >= 4;
