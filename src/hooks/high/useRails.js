@@ -1,9 +1,9 @@
 import useNumericInput from "../low/useNumericInput";
 
-const useRails = () => {
-	const [rails, setRails, inputRails] = useNumericInput(1);
+const useRails = (val = 2) => {
+  const [rails, setRails, inputRails] = useNumericInput(val);
 
-	return [rails, setRails, inputRails];
+  return [rails, setRails, inputRails];
 };
 
 export default useRails;

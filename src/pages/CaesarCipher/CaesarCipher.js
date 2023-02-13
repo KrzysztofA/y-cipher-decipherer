@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import CaesarForm from "../../components/Form/CaesarForm";
+import CaesarForm from "../../components/CaesarForm";
 import OutputWindow from "../../components/OutputWindow";
 import { CAESARENDPOINT, URL } from "../../Constants";
 
@@ -34,8 +34,10 @@ const CaesarCipher = () => {
 
   const fillHandle = (value) => {
     if (value !== " ") {
-      let valList = value.split(",");
-      valList[1] = valList[1].split("");
+      const lastIdx = value.lastIndexOf(",");
+      let valList = [];
+      valList.push(value.slice(0, lastIdx));
+      valList.push(value.slice(lastIdx + 1));
       fillDispatchCode(valList[0]);
       setShift(parseInt(valList[1]));
     } else {
