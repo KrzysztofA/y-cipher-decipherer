@@ -1,32 +1,33 @@
 .formList {
-	list-style: none;
-	display: flex;
-	flex-direction: column;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .formList li {
-	margin-top: 5px;
+  margin-top: 5px;
 }
 
 .errorMessage {
-	height: 1em;
-	color: red;
-	text-align: center;
+  height: 1em;
+  display: block;
+  color: red;
+  text-align: center;
 }
 
 .codeInput {
-	width: 100%;
+  width: 100%;
 }
 
 .numberInput {
-	font-size: 2em;
-	width: 100%;
-	display: flex;
-	justify-content: right;
-	gap: 25px;
-	margin-bottom: 10px;
+  font-size: 2em;
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  gap: 25px;
+  margin-bottom: 10px;
 }
 
 .numberInput input {
-	font-size: 1em;
+  font-size: 1em;
 }

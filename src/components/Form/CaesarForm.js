@@ -1,159 +1,39 @@
-import React, { useState, useEffect, useReducer } from "react";
+import { useContext } from "react";
 
 import TextInput from "../UI/TextInput/TextInput";
-import AutoFill from "../AutoFill/AutoFill";
-import Submit from "../UI/SubmitButton/Submit";
+import Form from "../UI/Form";
+import ShiftInput from "../ShiftInput";
+import Choices from "../Choices/Choices";
 
-import { URL, CAESARENDPOINT, ERRORMESSAGES } from "../../Constants";
+import FormContext from "../../hooks/context/FormContext";
 
-import styles from "./Form.module.css";
-import LoadingModal from "../UI/LoadingPortal";
-import useFetch from "../../hooks/low/useFetch";
+const CaesarForm = () => {
+  const { errorHandles, codeHandle, clueHandle } = useContext(FormContext);
+  const { codeState, userDispatchCode } = codeHandle;
+  const { clueState, userDispatchClue } = clueHandle;
 
-const codeReducer = (state, action) => {
-	if (action.type === "USER_INPUT") {
-		return {
-			value: action.val,
-			isValid: action.val.match(/([\d]|[^\w])/m) == null,
-		};
-	} else if (action.type === "AUTO_FILL") {
-		return {
-			value: action.val,
-			isValid: true,
-		};
-	}
-	return {
-		value: "",
-		isValid: true,
-	};
+  // Sets the change to the code input via reducer
+  const codeInputChangeHandler = (ev) => {
+    userDispatchCode(ev.target.value);
+  };
+
+  return (
+    <Form>
+      <TextInput
+        id="code"
+        onChange={codeInputChangeHandler}
+        value={codeState.value}
+        placeholder="Enter coded text"
+        errorSource={errorHandles[0]}
+      />
+      <ShiftInput
+        shift={clueState}
+        onChange={userDispatchClue}
+        errorSource={errorHandles[1]}
+      />
+      <Choices />
+    </Form>
+  );
 };
 
-export default function CaesarForm(props) {
-	// Shift no. state
-	const [shift, setShift] = useState(1);
-
-	// Error handling states
-	const [codeError, setCodeError] = useState("");
-	const [submitError, setSubmitError] = useState("");
-
-	// Loading handler
-	const [loading, setLoading] = useState(false);
-
-	// Code input handling dispatcher
-	const [codeState, dispatchCode] = useReducer(codeReducer, {
-		value: "",
-		isValid: true,
-	});
-
-	useEffect(() => {
-		const codeTimeout = setTimeout(() => {
-			if (!codeState.isValid) {
-				setCodeError(ERRORMESSAGES.INVALID_CHAR);
-			} else {
-				setCodeError("");
-			}
-		}, 500);
-		return () => {
-			clearTimeout(codeTimeout);
-		};
-	}, [codeState.isValid]);
-
-	const codeChangeHandler = (ev) => {
-		dispatchCode({
-			type: "USER_INPUT",
-			val: ev.target.value,
-		});
-	};
-
-	const shiftChangeHandler = (ev) => {
-		setShift(ev.target.value);
-	};
-
-	const fillChangeHandler = (value) => {
-		if (value !== " ") {
-			let valList = value.split(",");
-			dispatchCode({
-				type: "AUTO_FILL",
-				val: valList[0],
-			});
-			setShift(parseInt(valList[1]));
-		} else {
-			dispatchCode({
-				type: "AUTO_FILL",
-				val: "",
-			});
-			setShift(parseInt(1));
-		}
-	};
-
-	const handleFetch = useFetch(URL, CAESARENDPOINT);
-
-	const submitCaesarHandler = (ev) => {
-		ev.preventDefault();
-		if (!codeState.isValid) {
-			setSubmitError(ERRORMESSAGES.SUBMIT);
-			return;
-		}
-		setSubmitError("");
-		setLoading(true);
-		const query = {
-			code: codeState.value,
-			shift: shift,
-		};
-		handleFetch(query)
-			.then((res) => {
-				if (res.status !== 200) throw new Error(res.statusText);
-				return res.json();
-			})
-			.then((json) => {
-				props.setOutput(() => [
-					{ message: json.message },
-					{ message: json.altMessage },
-				]);
-			})
-			.catch((err) => {
-				setSubmitError(err.message);
-			})
-			.finally(() => {
-				setLoading(false);
-			});
-	};
-
-	return (
-		<>
-			{loading && <LoadingModal />}
-			<form onSubmit={submitCaesarHandler}>
-				<ul className={styles.formList}>
-					<li className={styles.codeInput}>
-						<TextInput
-							id="code"
-							onChange={codeChangeHandler}
-							value={codeState.value}
-							placeholder="Enter coded text"
-						/>
-						<div className={styles.errorMessage}>{codeError}</div>
-					</li>
-					<li className={styles.numberInput}>
-						<label htmlFor="shift">Shift Value: </label>
-						<input
-							type="number"
-							min="1"
-							max="25"
-							value={shift}
-							id="shift"
-							onChange={shiftChangeHandler}
-						/>
-					</li>
-					<li className={styles.choices}>
-						<AutoFill
-							dataSource="samplesCaesar.json"
-							changeHandler={fillChangeHandler}
-						/>
-						<Submit />
-					</li>
-					<div className={styles.errorMessage}>{submitError}</div>
-				</ul>
-			</form>
-		</>
-	);
-}
+export default CaesarForm;
