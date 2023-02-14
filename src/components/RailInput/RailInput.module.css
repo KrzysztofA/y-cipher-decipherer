@@ -6,3 +6,9 @@
   gap: 25px;
   margin-bottom: 10px;
 }
+
+.number {
+  font-weight: bold;
+  text-align: center;
+  text-decoration: underline 1px blue;
+}

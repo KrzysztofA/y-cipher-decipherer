@@ -11,6 +11,7 @@ const ShiftInput = (props) => {
         value={props.shift}
         id="shift"
         onChange={props.onChange}
+        className={styles.number}
       />
     </div>
   );

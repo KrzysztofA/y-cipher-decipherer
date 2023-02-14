@@ -10,7 +10,7 @@ import useInputReducer from "../../hooks/reducers/useInputReducer";
 import useRails from "../../hooks/high/useRails";
 import useErrorHandler from "../../hooks/high/useErrorHandler";
 
-import { RAILENDPOINT } from "../../Constants";
+import { RAILENDPOINT, URL } from "../../Constants";
 import { greaterThanTwo } from "../../utils";
 
 const formatOutput = (json) => {
@@ -26,9 +26,11 @@ const RailCipher = () => {
 
   const [railsState, setRails, inputRails] = useRails(2);
 
-  const query = {
-    code: codeState.value,
-    rails: railsState,
+  const query = () => {
+    return {
+      code: codeState.value,
+      rails: railsState,
+    };
   };
 
   // States for the Error Messages

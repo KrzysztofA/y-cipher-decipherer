@@ -1,29 +1,15 @@
-import { useState, useEffect, useContext } from "react";
-import FormContext from "../../hooks/context/FormContext";
+import useAutoFill from "../../hooks/high/useAutoFill";
 
 import styles from "./AutoFill.module.css";
 
 const AutoFill = () => {
   /* 
-        Holds a collection of samples to use with the given cipher
-        Data fetched from a single json file ideally passed by props.
-        Data is divided into code and clue, where clue could be clue phrase,
-        but also number of rails or number of letters shifted.
-    */
-  const [samples, setSamples] = useState(null);
-
-  const { dataSource, fillHandle } = useContext(FormContext);
-
-  // Load data on initial component mount, works once
-  useEffect(() => {
-    const sampleData = require(`/assets/data/${dataSource}`);
-    setSamples(sampleData);
-  }, [dataSource]);
-
-  // Set selected option to the chosen option whenever the options is chosen
-  const fillChangeHandler = (event) => {
-    fillHandle(event.target.value);
-  };
+		Holds a collection of samples to use with the given cipher
+		Data fetched from a single json file ideally passed by props.
+		Data is divided into code and clue, where clue could be clue phrase,
+		but also number of rails or number of letters shifted.
+  */
+  const [samples, fillChangeHandler] = useAutoFill();
 
   return (
     <select

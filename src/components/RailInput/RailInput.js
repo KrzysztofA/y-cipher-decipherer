@@ -11,6 +11,7 @@ const RailInput = (props) => {
         value={props.rails}
         id="rails"
         onChange={props.onChange}
+        className={styles.number}
       />
     </div>
   );
