@@ -14,75 +14,75 @@ import { RAILENDPOINT, URL } from "../../Constants";
 import { greaterThanTwo } from "../../utils";
 
 const formatOutput = (json) => {
-  return [{ message: json.message }, { message: json.altMessage }];
+	return [{ message: json.message }];
 };
 
 const RailCipher = () => {
-  const [output, setOutput] = useState(null);
+	const [output, setOutput] = useState(null);
 
-  const [codeState, userDispatchCode, fillDispatchCode] = useInputReducer("", [
-    greaterThanTwo,
-  ]);
+	const [codeState, userDispatchCode, fillDispatchCode] = useInputReducer("", [
+		greaterThanTwo,
+	]);
 
-  const [railsState, setRails, inputRails] = useRails(2);
+	const [railsState, setRails, inputRails] = useRails(2);
 
-  const query = () => {
-    return {
-      code: codeState.value,
-      rails: railsState,
-    };
-  };
+	const query = () => {
+		return {
+			code: codeState.value,
+			rails: railsState,
+		};
+	};
 
-  // States for the Error Messages
-  const errorCodeInput = useErrorHandler(
-    codeState.valid,
-    () => codeState.error
-  );
+	// States for the Error Messages
+	const errorCodeInput = useErrorHandler(
+		codeState.valid,
+		() => codeState.error
+	);
 
-  const fillHandle = (value) => {
-    if (value !== " ") {
-      const lastIdx = value.lastIndexOf(",");
-      let valList = [];
-      valList.push(value.slice(0, lastIdx));
-      valList.push(value.slice(lastIdx + 1));
-      fillDispatchCode(valList[0]);
-      setRails(parseInt(valList[1]));
-    } else {
-      fillDispatchCode("");
-      setRails(2);
-    }
-  };
+	const fillHandle = (value) => {
+		if (value !== " ") {
+			const lastIdx = value.lastIndexOf(",");
+			let valList = [];
+			valList.push(value.slice(0, lastIdx));
+			valList.push(value.slice(lastIdx + 1));
+			fillDispatchCode(valList[0]);
+			setRails(parseInt(valList[1]));
+		} else {
+			fillDispatchCode("");
+			setRails(2);
+		}
+	};
 
-  return (
-    <FormContext.Provider
-      value={{
-        url: URL,
-        endpoint: RAILENDPOINT,
-        dataSource: "samplesRail.json",
-        query: query,
-        fillHandle: fillHandle,
-        errorHandles: [errorCodeInput],
-        codeHandle: { codeState, userDispatchCode, fillDispatchCode },
-        clueHandle: {
-          clueState: railsState,
-          userDispatchClue: inputRails,
-          fillDispatchClue: setRails,
-        },
-      }}
-    >
-      <OutputContext.Provider
-        value={{
-          output: output,
-          setOutput: setOutput,
-          formatOutput: formatOutput,
-        }}
-      >
-        <h3>Y-Rail Cipher Decipherer</h3>
-        <RailForm setOutput={setOutput} />
-        <OutputWindow output={output} />
-      </OutputContext.Provider>
-    </FormContext.Provider>
-  );
+	return (
+		<FormContext.Provider
+			value={{
+				url: URL,
+				endpoint: RAILENDPOINT,
+				dataSource: "samplesRail.json",
+				query: query,
+				fillHandle: fillHandle,
+				errorHandles: [errorCodeInput],
+				codeHandle: { codeState, userDispatchCode, fillDispatchCode },
+				clueHandle: {
+					clueState: railsState,
+					userDispatchClue: inputRails,
+					fillDispatchClue: setRails,
+				},
+			}}
+		>
+			<OutputContext.Provider
+				value={{
+					output: output,
+					setOutput: setOutput,
+					formatOutput: formatOutput,
+				}}
+			>
+				<h3>Y-Rail Cipher Decipherer</h3>
+				<RailForm setOutput={setOutput} />
+				<OutputWindow output={output} />
+			</OutputContext.Provider>
+		</FormContext.Provider>
+	);
 };
 
 export default RailCipher;

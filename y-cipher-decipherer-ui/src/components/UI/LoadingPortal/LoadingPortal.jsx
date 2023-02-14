@@ -9,7 +9,11 @@ const Backdrop = () => {
 const LoadingIndicator = () => {
 	return (
 		<>
-			<div className={styles.center}>
+			<div
+				className={styles.center}
+				role="dialog"
+				aria-modal="true"
+			>
 				<div className={styles.ring}></div>
 				<span>Loading...</span>
 			</div>
