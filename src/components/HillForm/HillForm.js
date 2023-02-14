@@ -30,6 +30,7 @@ const HillForm = () => {
         errorSource={errorHandles[0]}
       />
       <ClueInput
+        id="clueinpt"
         value={clueState.value}
         dispatchClue={userDispatchClue}
         errorSource={errorHandles[1]}

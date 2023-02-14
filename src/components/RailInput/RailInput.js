@@ -1,19 +1,15 @@
-import styles from "./RailInput.module.css";
+import NumberInput from "../UI/NumberInput";
 
 const RailInput = (props) => {
   return (
-    <div className={styles.numberInput}>
-      <label htmlFor="rails">No. of Rails: </label>
-      <input
-        type="number"
-        min="2"
-        max="9999"
-        value={props.rails}
-        id="rails"
-        onChange={props.onChange}
-        className={styles.number}
-      />
-    </div>
+    <NumberInput
+      id="rails"
+      label="No. of Rails: "
+      value={props.rails}
+      min={2}
+      max={9999}
+      onChange={props.onChange}
+    />
   );
 };
 

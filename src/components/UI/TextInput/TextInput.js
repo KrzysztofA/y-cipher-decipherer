@@ -1,6 +1,6 @@
 import styles from "./TextInput.module.css";
 
-const TextInput = ({ onChange, placeholder, value, id }) => {
+const TextInput = ({ onChange, placeholder, value, id, errorSource }) => {
   return (
     <input
       className={styles.textInput}
@@ -10,6 +10,9 @@ const TextInput = ({ onChange, placeholder, value, id }) => {
       onChange={onChange}
       value={value}
       placeholder={placeholder}
+      aria-label="Input field for code to be decoded"
+      aria-errormessage={`error${id}`}
+      aria-invalid={errorSource ? true : false}
     />
   );
 };

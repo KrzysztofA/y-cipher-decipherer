@@ -8,7 +8,7 @@ import useFormSubmit from "../../../hooks/high/useFormSubmit";
 import LoadingPortal from "../LoadingPortal";
 import useLoading from "../../../hooks/low/useLoading";
 
-const Form = ({ children }) => {
+const Form = ({ children, tabIndex }) => {
   const { codeHandle, clueHandle } = useContext(FormContext);
 
   const [loading, startLoading, stopLoading] = useLoading();
@@ -23,7 +23,10 @@ const Form = ({ children }) => {
   return (
     <>
       {loading && <LoadingPortal />}
-      <form onSubmit={submitHandler}>
+      <form
+        onSubmit={submitHandler}
+        aria-busy={loading}
+      >
         <ul className={styles.formList}>
           {Array.isArray(children) &&
             children.map((child, i) => {
@@ -31,16 +34,26 @@ const Form = ({ children }) => {
                 <Fragment key={`FormItem ${i} ${child.props.id}`}>
                   <li>{child}</li>
                   {child.props.errorSource ? (
-                    <div className={styles.errorMessage}>
+                    <div
+                      className={styles.errorMessage}
+                      role="status"
+                      id={`error${child.props.id}`}
+                    >
                       {child.props.errorSource}
                     </div>
-                  ) : (
+                  ) : child.props.errorSource === "" ? (
                     <div className={styles.errorMessage} />
-                  )}
+                  ) : null}
                 </Fragment>
               );
             })}
-          <div className={styles.errorMessage}>{submitError}</div>
+          <div
+            role="alert"
+            className={styles.errorMessage}
+            id="submiterror"
+          >
+            {submitError}
+          </div>
         </ul>
       </form>
     </>

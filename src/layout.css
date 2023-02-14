@@ -1,16 +1,36 @@
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-	background-color: lightsteelblue;
+  background-color: lightsteelblue;
+  font-size: 0.75em;
 }
 
 h1,
 h2,
 h3,
 h4 {
-	text-align: center;
+  text-align: center;
+}
+
+.tabPanel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.hidden {
+  visibility: hidden;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+@media (min-width: 500px) and (min-height: 420px) {
+  body {
+    font-size: 1em;
+  }
 }

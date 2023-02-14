@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 
 import FormContext from "../context/FormContext";
 
@@ -8,6 +8,8 @@ const useAutoFill = () => {
 
   const { dataSource, fillHandle } = useContext(FormContext);
 
+  const previousSelection = useRef(null);
+
   // Load autofill data on initial component mount, works once
   useEffect(() => {
     const sampleData = require(`/assets/data/${dataSource}`);
@@ -16,6 +18,10 @@ const useAutoFill = () => {
 
   // Set selected option to the chosen option whenever the options is chosen
   const fillChangeHandler = (event) => {
+    if (previousSelection.current)
+      previousSelection.current.setAttribute("aria-selected", false);
+    event.target.setAttribute("aria-selected", true);
+    previousSelection.current = event.target;
     fillHandle(event.target.value);
   };
 

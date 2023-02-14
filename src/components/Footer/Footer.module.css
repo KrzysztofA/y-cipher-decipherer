@@ -1,10 +1,11 @@
 .footer {
-	margin-top: auto;
-	border-top: 1px dashed black;
-	padding-top: 5px;
+  margin-top: auto;
+  border-top: 1px dashed black;
+  padding-top: 5px;
+  position: relative;
 }
 
 .footer a {
-	color: orangered;
-	text-decoration: underline orangered;
+  color: orangered;
+  text-decoration: underline orangered;
 }

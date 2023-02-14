@@ -28,6 +28,7 @@ const RailForm = () => {
         errorSource={errorHandles[0]}
       />
       <RailInput
+        id="railsinpt"
         rails={clueState}
         onChange={userDispatchClue}
         errorSource={errorHandles[1]}

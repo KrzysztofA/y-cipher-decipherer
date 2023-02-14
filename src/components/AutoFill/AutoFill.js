@@ -15,9 +15,13 @@ const AutoFill = () => {
     <select
       className={styles.autoFill}
       onChange={fillChangeHandler}
+      aria-label="Autofill with sample value"
+      id="autofill"
+      tabIndex={0}
     >
       <option
         value=" "
+        aria-selected="false"
         defaultValue
       >
         Select Sample
@@ -27,6 +31,7 @@ const AutoFill = () => {
           <option
             className={styles.sample}
             key={["option", i + 1].join("")}
+            aria-selected="false"
             value={`${[x.code.toUpperCase(), x.clue.toUpperCase()].join(",")}`}
           >
             {x.code.toUpperCase()}, {x.clue.toUpperCase()}
