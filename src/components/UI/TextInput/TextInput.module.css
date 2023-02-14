@@ -1,9 +1,11 @@
 .textInput {
-    width: 100%;
-    font-size: 3em;
-    height: 1em;
+  width: 100%;
+  font-size: 3em;
+  height: 1em;
 }
 
 .textInput::placeholder {
-    font-size: 0.7em;
+  font-size: 0.8em;
+  letter-spacing: 2px;
+  padding-left: 2px;
 }
