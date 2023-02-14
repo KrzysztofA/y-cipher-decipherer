@@ -27,6 +27,7 @@ const CaesarForm = () => {
         errorSource={errorHandles[0]}
       />
       <ShiftInput
+        id="shiftinpt"
         shift={clueState}
         onChange={userDispatchClue}
         errorSource={errorHandles[1]}
