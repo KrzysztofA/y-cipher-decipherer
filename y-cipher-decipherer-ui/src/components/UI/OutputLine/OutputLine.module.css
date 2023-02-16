@@ -1,0 +1,9 @@
+.line {
+	display: block;
+	width: 100%;
+	transition: background-color 0.2s ease-in;
+}
+
+.line:hover {
+	background-color: rgba(255, 68, 0, 0.2);
+}

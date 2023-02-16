@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import RailForm from "../../components/RailForm";
-import OutputWindow from "../../components/OutputWindow";
+import RailForm from "../../components/Compound/RailForm";
+import OutputWindow from "../../components/Containers/OutputWindow";
 
 import OutputContext from "../../hooks/context/OutputContext";
 import FormContext from "../../hooks/context/FormContext";

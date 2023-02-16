@@ -1,7 +1,7 @@
 import styles from "./Choices.module.css";
 
-import AutoFill from "../AutoFill/AutoFill";
-import Submit from "../UI/SubmitButton/Submit";
+import AutoFill from "../AutoFill";
+import Submit from "../Submit";
 
 const Choices = () => {
 	return (
