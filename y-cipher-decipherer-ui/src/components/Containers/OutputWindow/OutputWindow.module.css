@@ -1,48 +1,38 @@
 .window {
-  font-family: monospace;
-  font-size: 2rem;
-  color: black;
-  background-color: mintcream;
-  position: relative;
-  width: 100%;
-  flex-grow: 1;
+	font-family: monospace;
+	font-size: 2rem;
+	color: black;
+	background-color: mintcream;
+	position: relative;
+	width: 100%;
+	flex-grow: 1;
 
-  min-height: 2em;
+	min-height: 2em;
 
-  margin-top: 20px;
-  margin-bottom: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 
-  padding-left: 5px;
-  padding-top: 10px;
+	padding-left: 5px;
+	padding-top: 10px;
 
-  border-radius: 10px;
-  border: 1px solid black;
+	border-radius: 10px;
+	border: 1px solid black;
 
-  list-style: none;
-  overflow: auto;
-}
-
-.line {
-  display: block;
-  width: 100%;
-  transition: background-color 0.2s ease-in;
-}
-
-.line:hover {
-  background-color: rgba(255, 68, 0, 0.2);
+	list-style: none;
+	overflow: auto;
 }
 
 .window::-webkit-scrollbar {
-  width: 0.5em;
+	width: 0.5em;
 }
 
 .window::-webkit-scrollbar-track {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  border-radius: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 10px;
 }
 
 .window::-webkit-scrollbar-thumb {
-  background-color: rgba(135, 206, 250, 0.5);
-  border-radius: 20px;
+	background-color: rgba(135, 206, 250, 0.5);
+	border-radius: 20px;
 }
