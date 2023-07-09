@@ -2,14 +2,14 @@
 {
   "META":
   {
-    "TYPE": "WebAPP-FULLSTACK",
-    "READY": true,
-    "MAIN":
+    "type": "WebAPP-FULLSTACK",
+    "ready": true,
+    "main":
     [
       "React",
       "NodeJS"
     ],
-    "TAGS":
+    "tags":
     [
       "JavaScript",
       "CSS",
@@ -27,13 +27,10 @@
       "Cryptography",
       "Mathematics"
     ],
-    "STATS":
-    {
-      "SATISFACTION": "4",
-      "DIFFICULTY": "2",
-      "CHALLENGE": "3",
-      "COMPLEXITY": "4"
-    }
+    "satisfaction": "4",
+    "difficulty": "2",
+    "challange": "3",
+    "complexity": "4"
   }
 }
 -->
@@ -61,7 +58,7 @@ Cipher using Matlab or Python. For personal curiosity, and as at the time I was
 learning JavaScript and NodeJS, I decided to implement an app using these
 technologies. Initially I also created GUI in vanilla JavaScript, which was
 flawed. While learning React I decided to refresh the GUI and fix all the issues
-that API had.
+that API had, including bottling up code and reducing operation count.
 
 ### Ciphers
 
@@ -74,6 +71,14 @@ Application can decipher selection of Ciphers:
 - Rails Cipher
 
 ## Mathematics
+
+Mathematics behind the hill cipher revolve around mathematics of modulus.
+Modulus is branch of mathematics with operations revolved around division
+remainders. Letters are a special and very unfavourable case of modulus, as 26
+is not a prime number. 26 can be divided by 13, meaning that there are 2
+possible values for each letter (eg. A can take value of 1 and 13, and so can
+M). Another important mathematics field that is included in Hill Cipher is
+linear algebra, and matrix multiplication.
 
 ## Features
 
