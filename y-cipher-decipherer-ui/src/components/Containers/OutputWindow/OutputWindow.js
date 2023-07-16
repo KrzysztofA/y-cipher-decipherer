@@ -6,22 +6,22 @@ import OutputContext from "../../../hooks/context/OutputContext";
 import OutputLine from "../../UI/OutputLine";
 
 const OutputWindow = () => {
-	const { output } = useContext(OutputContext);
+  const { output } = useContext(OutputContext);
 
-	return (
-		<ul
-			className={styles.window}
-			role="log"
-		>
-			{output?.map((element, i) => {
-				if (element.message) {
-					return <OutputLine key={`line${i}`}>{element.message}</OutputLine>;
-				} else {
-					return "";
-				}
-			})}
-		</ul>
-	);
+  return (
+    <ul
+      className={styles.window}
+      role="log"
+    >
+      {output?.map((element, i) => {
+        if (element.message) {
+          return <OutputLine key={`line${i}`}>{element.message}</OutputLine>;
+        } else {
+          return "";
+        }
+      })}
+    </ul>
+  );
 };
 
 export default OutputWindow;

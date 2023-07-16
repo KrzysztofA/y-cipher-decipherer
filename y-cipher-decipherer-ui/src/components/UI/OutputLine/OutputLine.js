@@ -1,7 +1,7 @@
 import styles from "./OutputLine.module.css";
 
-const OutputLine = ({ message }) => {
-	return <li className={styles.line}>{message}</li>;
+const OutputLine = ({ children }) => {
+  return <li className={styles.line}>{children}</li>;
 };
 
 export default OutputLine;

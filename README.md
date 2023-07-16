@@ -1,6 +1,6 @@
 <!--
 {
-  "META":
+  "meta":
   {
     "type": "WebAPP-FULLSTACK",
     "ready": true,
