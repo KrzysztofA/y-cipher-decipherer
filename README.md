@@ -2,7 +2,7 @@
 {
   "meta":
   {
-    "type": "WebAPP-FULLSTACK",
+    "type": "WebAPPFULLSTACK",
     "ready": true,
     "main":
     [
