@@ -2,29 +2,27 @@
 {
   "meta":
   {
-    "type": "WebAPPFULLSTACK",
+    "type": "WebAppFULLSTACK",
     "ready": true,
     "main":
     [
-      "React",
-      "NodeJS"
+      "Cryptography",
+      "Ciphers"
     ],
     "tags":
     [
       "JavaScript",
       "CSS",
-      "Web-Development",
-      "NextJS",
+      "WebDevelopment",
+      "NodeJS",
       "React",
       "UX",
       "GitHub",
-      "Front-End",
-      "Back-End",
+      "FrontEnd",
+      "BackEnd",
       "REST",
       "Express",
       "API",
-      "Ciphers",
-      "Cryptography",
       "Mathematics"
     ],
     "satisfaction": "4",
