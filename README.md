@@ -4,6 +4,7 @@
   {
     "type": "WebAppFULLSTACK",
     "ready": true,
+    "version": "1.0.1",
     "main":
     [
       "Cryptography",
