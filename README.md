@@ -36,6 +36,8 @@
 
 # Y-Cipher-Decipherer
 
+![alt text](thumbnail.png)
+
 Application deciphering coded messages with Hill Cipher, Caesar Cipher, and
 Rails Cipher, created for assignment submission in the first year of a Mathematics
 BCs course in computing module. Application made with React for Front-End and NodeJS
