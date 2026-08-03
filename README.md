@@ -1,39 +1,3 @@
-<!--
-{
-  "meta":
-  {
-    "type": "WebAppFULLSTACK",
-    "ready": true,
-    "version": "1.0.1",
-    "main":
-    [
-      "Cryptography",
-      "Ciphers"
-    ],
-    "tags":
-    [
-      "JavaScript",
-      "CSS",
-      "WebDevelopment",
-      "NodeJS",
-      "React",
-      "UX",
-      "GitHub",
-      "FrontEnd",
-      "BackEnd",
-      "REST",
-      "Express",
-      "API",
-      "Mathematics"
-    ],
-    "satisfaction": "4",
-    "difficulty": "2",
-    "challange": "3",
-    "complexity": "4"
-  }
-}
--->
-
 # Y-Cipher-Decipherer
 
 Application for encrypting and decrypting messages using the **Hill Cipher**, **Caesar Cipher**, and **Rail Fence Cipher**. The project was originally created as a first-year university assignment for a Mathematics module, but it evolved into a full-stack web application built with **React** and **Node.js** to explore modern JavaScript technologies beyond the original coursework requirements.
